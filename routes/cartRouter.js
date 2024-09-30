@@ -78,21 +78,20 @@ router.delete("/:cid", async (req, res) => {
     const deleted = await cm.deleteCart(cid);
     res.send({ status: "success", payload: deleted });
   } catch (error) {
-    console.log(error.message);
-  }
-
-  router.delete("/:cid/products/:pid", async (req, res) => {
-    try {
-      const { cid, pid } = req.params;
-      const deletedProduct = await cm.deleteProductFromCart(cid, pid);
-      res.send({ status: "success", payload: deletedProduct });
-    } catch (error) {
-      console.log(error.message);
-      res.send({ status: "error", message: "Error al eliminar el producto del carrito" });
-    }
-  }); 
-  
+    console.log(error.message); } 
   
 });
+
+router.delete("/:cid/products/:pid", async (req, res) => {
+  try {
+    const { cid, pid } = req.params;
+    const deletedProduct = await cm.deleteProductFromCart(cid, pid);
+    res.send({ status: "success", payload: deletedProduct });
+  } catch (error) {
+    console.log(error.message);
+    res.send({ status: "error", message: "Error al eliminar el producto del carrito" });
+  }
+}); 
+
 
 export default router;

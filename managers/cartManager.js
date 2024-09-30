@@ -12,7 +12,7 @@ export default class Cart {
   getCartByiD = async (cartId) => {
     try {
       const foundProduct = await cartModel
-        .find({_id: cartId})
+        .find({ _id: cartId })
         .populate("products.product");
       if (foundProduct) {
         return foundProduct;
@@ -41,7 +41,7 @@ export default class Cart {
       if (product) {
         const existingProduct = cart.products.find(
           (p) => p.product.toString() === productId
-        ); 
+        );
         if (existingProduct) {
           existingProduct.quantity += 1;
         } else {
@@ -57,26 +57,27 @@ export default class Cart {
   };
 
   deleteProductFromCart = async (cartId, productId) => {
+
     try {
       const cart = await cartModel.findById(cartId);
+
       if (!cart) {
-        return `El carrito con ID ${cartId} no existe`;
+        throw new Error("Carrito no encontrado");
       }
-   
+
       cart.products = cart.products.filter(
-        (p) => p.product.toString() !== productId
+       (p) => p.product.toString() !== productId       
       );
 
       await cart.save();
       return cart;
     } catch (error) {
-      throw error;
+      throw new Error(`Error al eliminar el producto: ${error.message}`);
     }
   };
 
   updateCart = async (cartId, productsArray) => {
     try {
-    
       for (let item of productsArray) {
         const productExists = await productModel.findById(item.product);
         if (!productExists) {
@@ -89,7 +90,8 @@ export default class Cart {
           cartId,
           { products: productsArray },
           { new: true, runValidators: true }
-        ).populate("products.product");
+        )
+        .populate("products.product");
 
       return updatedCart;
     } catch (error) {
@@ -104,9 +106,7 @@ export default class Cart {
         return `El carrito con ID ${cartId} no existe`;
       }
 
-      const product = cart.products.find(
-        (p) => p.product.toString() === productId
-      );
+      const product = cart.products.find((p) => p.product.toString() === productId);
       if (!product) {
         return `El producto con ID ${productId} no está en el carrito`;
       }
