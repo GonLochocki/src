@@ -106,11 +106,13 @@ export default class Cart {
         return `El carrito con ID ${cartId} no existe`;
       }
 
-      const product = cart.products.find((p) => p.product.toString() === productId);
+      const product = cart.products.find(
+        (p) => p.product.toString() === productId
+      );
       if (!product) {
         return `El producto con ID ${productId} no está en el carrito`;
       }
-
+      
       product.quantity = quantity;
 
       await cart.save();
