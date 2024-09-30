@@ -4,10 +4,43 @@ import ProductManager from "../managers/productManager.js";
 const router = Router();
 const pm = new ProductManager();
 
+
 router.get("/", async (req, res) => {
-  const products = await pm.getAll();
-  res.send({ status: "success", payload: products });
+  try {
+    
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
+    const sort = req.query.sort; 
+    const query = req.query.query; 
+    
+    const products = await pm.getAll({ limit, page, sort, query });
+   
+    const buildLink = (p) => {
+      if (p) {
+        return `${req.protocol}://${req.get("host")}${req.baseUrl}?page=${p}&limit=${limit}${sort ? `&sort=${sort}` : ""}${query ? `&query=${query}` : ""}`;
+      }
+      return null;
+    };
+
+    res.send({
+      status: "success",
+      payload: products.docs,
+      totalPages: products.totalPages,
+      prevPage: products.prevPage,
+      nextPage: products.nextPage,
+      page: products.page,
+      hasPrevPage: products.hasPrevPage,
+      hasNextPage: products.hasNextPage,
+      prevLink: buildLink(products.prevPage),
+      nextLink: buildLink(products.nextPage),
+    });
+  } catch (error) {
+    console.error(error);
+    res.send({ status: "error", message: "Error al obtener los productos" });
+  }
 });
+
+
 
 router.get("/:pid", async (req, res) => {
   const { pid } = req.params;

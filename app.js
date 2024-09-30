@@ -4,6 +4,7 @@ import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
 import productsRouter from "./routes/productsRouter.js"
 import cartsRouter from "./routes/cartRouter.js"
+import viewsRouter from "./routes/viewsRouter.js"
 
 const app = express();
 const PORT = 8080;
@@ -24,6 +25,9 @@ app.set("view engine", "handlebars");
 
 app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
+app.use("/", viewsRouter)
+
+
 
 app.listen(PORT, () => {
   console.log(`Conectado al puerto ${PORT}`);
