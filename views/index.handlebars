@@ -10,7 +10,15 @@
 
     <br>
 
-    <p>Page {{page}} of {{totalPages}}</p>
+    <p>Index {{page}} of {{totalPages}}</p>
+
+    {{#if hasPrevPage}}
+    <a href="/products?page={{prevPage}}"><button>Prev</button></a>
+    {{/if}}
+
+    {{#if hasNextPage}}
+    <a href="/products?page={{nextPage}}"><button>Next</button></a>
+    {{/if}}
 
 
 </div>
