@@ -58,7 +58,7 @@ export default class Product {
 
   updateproduct = async (productId, newData) => {
     try {
-      const product = await productModel.findByIdAndupdate(productId, newData, {
+      const product = await productModel.findByIdAndUpdate(productId, newData, {
         new: true,
         runValidators: true,
       });

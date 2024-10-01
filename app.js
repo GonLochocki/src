@@ -25,7 +25,7 @@ app.set("view engine", "handlebars");
 
 app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
-app.use("/", viewsRouter)
+app.use("/views", viewsRouter)
 
 
 

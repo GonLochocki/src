@@ -11,13 +11,13 @@ export default class Cart {
 
   getCartByiD = async (cartId) => {
     try {
-      const foundProduct = await cartModel
-        .find({ _id: cartId })
-        .populate("products.product");
-      if (foundProduct) {
-        return foundProduct;
+      const foundCart = await cartModel
+        .findById(cartId)
+        .populate("products.product").lean();
+      if (foundCart) {
+        return foundCart;
       } else {
-        return `El carrito con ID ${cartId} no se encuentra en la coleccion`;
+        throw new Error(`El carrito con ID ${cartId} no se encuentra en la colección`);
       }
     } catch (error) {
       throw error;

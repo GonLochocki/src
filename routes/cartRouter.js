@@ -27,11 +27,21 @@ router.get("/:cid", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const cart = cm.saveCart({ products: [] });
+    const cart = await cm.saveCart();
     res.send({ status: "success", payload: cart });
   } catch (error) {
     console.log(error.message);
     res.send({ status: "error", message: "Error al crear el carrito" });
+  }
+});
+
+router.post("/:cid/product/:pid", async (req, res) => {
+  const { cid, pid } = req.params;
+  try {
+    const updatedCart = await cm.addToCart(cid, pid);
+    res.json({ message: "Producto agregado", cart: updatedCart });
+  } catch (error) {
+    res.json({ message: "Error al agregar el producto al carrito" });
   }
 });
 
@@ -47,11 +57,11 @@ router.put("/:cid", async (req, res) => {
   }
 });
 
-router.put("/:cid/:pid", async (req, res) => {
+/* router.put("/:cid/:pid", async (req, res) => {
   const {cid, pid} = req.params
   await cm.addToCart(cid, pid)
   res.send({status: "success"})
-})
+}) */
 
 router.put("/:cid/products/:pid", async (req, res) => {
   try {
