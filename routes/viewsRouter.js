@@ -4,7 +4,7 @@ import CartManager from "../managers/cartManager.js";
 
 const router = Router();
 const pm = new ProductManager();
-const cm = new CartManager();
+/* const cm = new CartManager(); */
 
 
 router.get("/products", async (req, res) => {
@@ -15,17 +15,17 @@ router.get("/products", async (req, res) => {
         const query = req.query.query; 
 
        
-        const result = await pm.getAll({ limit, page, sort, query });
+        const products = await pm.getAll({ limit, page, sort, query });
 
        
         res.render("index", {
-            products: result.docs,
-            totalPages: result.totalPages,
-            page: result.page,
-            hasPrevPage: result.hasPrevPage,
-            hasNextPage: result.hasNextPage,
-            prevPage: result.prevPage,
-            nextPage: result.nextPage,
+            products: products.docs,
+            totalPages: products.totalPages,
+            page: products.page,
+            hasPrevPage: products.hasPrevPage,
+            hasNextPage: products.hasNextPage,
+            prevPage: products.prevPage,
+            nextPage: products.nextPage,
             limit,
             sort,
             query
@@ -37,7 +37,7 @@ router.get("/products", async (req, res) => {
 });
 
 
-router.get("/products/:pid", async (req, res) => {
+/* router.get("/products/:pid", async (req, res) => {
     try {
         const { pid } = req.params;
         const product = await pm.getById(pid);
@@ -91,5 +91,5 @@ router.get("/carts/:cid", async (req, res) => {
 router.get("/", (req, res) => {
     res.redirect("/products");
 });
-
+ */
 export default router;

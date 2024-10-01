@@ -1,0 +1,16 @@
+<div>
+    {{#each products}}
+    <p>Title: {{this.title}}</p>
+    <p>Description: {{this.description}}</p>
+    <p>Price: {{this.price}}</p>
+    <p>Stock: {{this.stock}}</p>
+    <p>Category: {{this.category}}</p>
+    <button>Add to Cart</button>
+    {{/each}}
+
+    <br>
+
+    <p>Page {{page}} of {{totalPages}}</p>
+
+
+</div>

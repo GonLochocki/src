@@ -13,14 +13,8 @@ router.get("/", async (req, res) => {
     const sort = req.query.sort; 
     const query = req.query.query; 
     
-    const products = await pm.getAll({ limit, page, sort, query });
+    const products = await pm.getAll({ limit, page, sort, query });  
    
-    const buildLink = (p) => {
-      if (p) {
-        return `${req.protocol}://${req.get("host")}${req.baseUrl}?page=${p}&limit=${limit}${sort ? `&sort=${sort}` : ""}${query ? `&query=${query}` : ""}`;
-      }
-      return null;
-    };
 
     res.send({
       status: "success",
@@ -31,9 +25,11 @@ router.get("/", async (req, res) => {
       page: products.page,
       hasPrevPage: products.hasPrevPage,
       hasNextPage: products.hasNextPage,
-      prevLink: buildLink(products.prevPage),
-      nextLink: buildLink(products.nextPage),
+      prevLink: products.prevPage,
+      nextLink: products.nextPage,
     });
+   
+
   } catch (error) {
     console.error(error);
     res.send({ status: "error", message: "Error al obtener los productos" });
