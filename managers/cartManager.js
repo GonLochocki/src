@@ -123,11 +123,15 @@ export default class Cart {
   };
 
   deleteCart = async (cartId) => {
-    try {
-      const deleted = await cartModel.deleteOne({ _id: cartId });
-      return deleted;
-    } catch (error) {
-      throw error;
-    }
+   try {
+
+    const cart = await cartModel.findById(cartId)
+    cart.products = ""
+    cart.save()
+    return cart
+    
+   } catch (error) {
+    throw error
+   }
   };
 }

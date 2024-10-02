@@ -14,8 +14,7 @@ router.get("/", async (req, res) => {
     const query = req.query.query; 
     
     const products = await pm.getAll({ limit, page, sort, query });    
-    const cartId = "66faf3aff7f22a928464469f"
-
+    
     res.send({
       status: "success",
       payload: products.docs,
@@ -26,8 +25,7 @@ router.get("/", async (req, res) => {
       hasPrevPage: products.hasPrevPage,
       hasNextPage: products.hasNextPage,
       prevLink: products.prevPage,
-      nextLink: products.nextPage,
-      cartId
+      nextLink: products.nextPage,      
     });
    
 

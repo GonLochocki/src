@@ -57,11 +57,7 @@ router.put("/:cid", async (req, res) => {
   }
 });
 
-/* router.put("/:cid/:pid", async (req, res) => {
-  const {cid, pid} = req.params
-  await cm.addToCart(cid, pid)
-  res.send({status: "success"})
-}) */
+
 
 router.put("/:cid/products/:pid", async (req, res) => {
   try {
