@@ -14,8 +14,9 @@ router.get("/products", async (req, res) => {
         const sort = req.query.sort; 
         const query = req.query.query; 
                
-        const products = await pm.getAll({ limit, page, sort, query });  
-       
+        const products = await pm.getAll({ limit, page, sort, query });       
+        
+        
         
        
         res.render("index", {
@@ -28,7 +29,8 @@ router.get("/products", async (req, res) => {
             nextPage: products.nextPage,
             limit,
             sort,
-            query                   
+            query,
+            pm                
         });
     } catch (error) {
         console.error(error);

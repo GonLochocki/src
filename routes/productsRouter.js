@@ -13,8 +13,8 @@ router.get("/", async (req, res) => {
     const sort = req.query.sort; 
     const query = req.query.query; 
     
-    const products = await pm.getAll({ limit, page, sort, query });    
-    
+    const products = await pm.getAll({ limit, page, sort, query });       
+
     res.send({
       status: "success",
       payload: products.docs,
@@ -45,7 +45,7 @@ router.get("/:pid", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const product = await pm.saveproducts(req.body);
+    const product = await pm.saveproducts(req.body); 
     res.send({ status: "success", payload: product });
   } catch (error) {
     console.log(error.message);
