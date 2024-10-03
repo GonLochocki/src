@@ -4,6 +4,8 @@ Obtener Productos: GET http://localhost:8080/api/products
 
 Obtener un producto: GET http://localhost:8080/api/products/66faf32af7f22a928464468b
 
+Filtrar productos por query: GET http://localhost:8080/views/products?query=category:guitars
+
 Crear un producto: POST http://localhost:8080/api/products 
 
 Pasar por body: 
