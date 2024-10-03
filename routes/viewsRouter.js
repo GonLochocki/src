@@ -14,9 +14,8 @@ router.get("/products", async (req, res) => {
         const sort = req.query.sort; 
         const query = req.query.query; 
                
-        const products = await pm.getAll({ limit, page, sort, query });       
-        
-        
+        const products = await pm.getAll({ limit, page, sort, query });           
+        const cart = "66fdb978f23a6a6b3b2c99c3"
         
        
         res.render("index", {
@@ -30,7 +29,7 @@ router.get("/products", async (req, res) => {
             limit,
             sort,
             query,
-            pm                
+            cart               
         });
     } catch (error) {
         console.error(error);

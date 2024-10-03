@@ -7,7 +7,7 @@
     <p>Price: {{this.price}}</p>
     <p>Stock: {{this.stock}}</p>
     <p>Category: {{this.category}}</p>
-    <button onclick='addToCart("{{this._id}}")'>Add to Cart</button>
+    <button onclick='addProductToCart({{cart}},"{{this._id}}")'>Add to Cart</button>
     {{/each}}
 
     <br>
